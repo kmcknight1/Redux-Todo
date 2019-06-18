@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { addNewTodo } from "../actions";
+import { addNewTodo, toggleTodo } from "../actions";
 
 class Todos extends Component {
   state = {
@@ -17,6 +17,11 @@ class Todos extends Component {
     this.setState({ newTodo: "" });
   };
 
+  toggleTodo = (e, index) => {
+    e.preventDefault();
+    this.props.toggleTodo(index);
+  };
+
   render() {
     console.log(this.props);
 
@@ -27,7 +32,9 @@ class Todos extends Component {
         </div>
         <div className="todos-list">
           {this.props.todos.map((todo, index) => (
-            <h4>{todo.value}</h4>
+            <h4 onClick={e => this.toggleTodo(e, index)} key={index}>
+              {todo.value}
+            </h4>
           ))}
         </div>
         <input
@@ -50,5 +57,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { addNewTodo }
+  { addNewTodo, toggleTodo }
 )(Todos);

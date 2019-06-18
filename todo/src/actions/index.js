@@ -6,3 +6,12 @@ export const addNewTodo = todo => {
     payload: todo
   };
 };
+
+export const TOGGLE_TODO = "TOGGLE_TODO";
+
+export const toggleTodo = index => {
+  return {
+    type: TOGGLE_TODO,
+    payload: index
+  };
+};
