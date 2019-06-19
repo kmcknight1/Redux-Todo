@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { addNewTodo, toggleTodo } from "../actions";
 
+import TodoItem from "./TodoItem";
+
 class Todos extends Component {
   state = {
     newTodo: ""
@@ -17,11 +19,6 @@ class Todos extends Component {
     this.setState({ newTodo: "" });
   };
 
-  toggleTodo = (e, index) => {
-    e.preventDefault();
-    this.props.toggleTodo(index);
-  };
-
   render() {
     console.log(this.props);
 
@@ -32,18 +29,18 @@ class Todos extends Component {
         </div>
         <div className="todos-list">
           {this.props.todos.map((todo, index) => (
-            <h4 onClick={e => this.toggleTodo(e, index)} key={index}>
-              {todo.value}
-            </h4>
+            <TodoItem todo={todo} key={index} index={index} />
           ))}
         </div>
-        <input
-          type="text"
-          value={this.state.newTodo}
-          onChange={this.handleChanges}
-          placeholder="Add new todo"
-        />
-        <button onClick={this.addTodo}>Add Todo</button>
+        <form onSubmit={this.addTodo}>
+          <input
+            type="text"
+            value={this.state.newTodo}
+            onChange={this.handleChanges}
+            placeholder="Add new todo"
+          />
+          <button type="submit">Add Todo</button>
+        </form>
       </>
     );
   }
